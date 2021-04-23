@@ -1,24 +1,24 @@
 version: 2
 jobs:
-  build:
-    docker:
-      - image: circleci/python:3.6.4
-    steps:
-      - checkout
-      - restore_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-      - run:
-          name: install dependencies
-          command: |
-            python3 -m venv venv
-            . venv/bin/activate
-            make install
-      - save_cache:
-          key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
-          paths:
-              - "venv"
-      - run:
-          name: run lint
-          command: |
-            . venv/bin/activate
-            make lint
+    build:
+        docker:
+            - image: circleci/python:3.6.4
+        steps:
+            - checkout
+            - restore_cache:
+                key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+            - run:
+                name: install dependencies
+                command: |
+                    python3 -m venv venv
+                    . venv/bin/activate
+                    make install
+            - save_cache:
+                key: deps1-{{ .Branch }}-{{ checksum "requirements.txt" }}
+                paths:
+                    - "venv"
+            - run:
+                name: run lint
+                command: |
+                    . venv/bin/activate
+                    make lint
